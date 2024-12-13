@@ -1,0 +1,15 @@
+[project]
+name = "hexlet-code"  # Имя проекта
+version = "0.1.0"  # Версия
+description = "A package to compare files"  # Описание
+authors = [
+    {name = "RatiborM", email = "r_morkvin@vk.com"}
+]
+
+dependencies = []
+
+[tool.uv.dependencies]
+python = "^3.10"
+
+[tool.uv.scripts]
+gendiff = "gendiff.scripts.gendiff:main"
