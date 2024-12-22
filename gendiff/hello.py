@@ -1,8 +1,8 @@
-from gendiff import parse_file
+from gendiff import generate_diff
 
 if __name__ == "__main__":
-    file1_data = parse_file('file1.json')
-    file2_data = parse_file('file2.json')
+    file1 = 'file1.json'  # Путь к первому файлу
+    file2 = 'file2.json'  # Путь ко второму файлу
 
-    print("File 1 data:", file1_data)
-    print("File 2 data:", file2_data)
+    diff = generate_diff(file1, file2)
+    print(diff)
