@@ -7,7 +7,7 @@ publish:
 package-install:
 		python3 -m pip install --user dist/*.whl
 
-force: #reinstall
+force:
 	pip install --user dist/*.whl --force-reinstall dist/*.whl
 
 test:
