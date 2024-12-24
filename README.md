@@ -1,6 +1,12 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/RatiborM/python-project-50/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/RatiborM/python-project-50/actions)
 
+### Maintainability status
+
+<a href="https://codeclimate.com/github/RatiborM/python-project-50/maintainability"><img src="https://api.codeclimate.com/v1/badges/acd05649de1fc98c22bc/maintainability" /></a>
+### Test Coverage status
+<a href="https://codeclimate.com/github/RatiborM/python-project-50/test_coverage"><img src="https://api.codeclimate.com/v1/badges/acd05649de1fc98c22bc/test_coverage" /></a>
+
 
 DESCRIPTION:
 Вычислитель отличий
