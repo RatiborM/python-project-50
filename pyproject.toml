@@ -8,12 +8,9 @@ authors = [
 
 [tool.poetry]
 name = "python-project-50"
-
-
-
 version = "0.1.0"
 description = "Вычислитель отличий"
-authors = ["Роман Морквин r_morkvin@.com>"]
+authors = ["Роман Морквин <r_morkvin@.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
