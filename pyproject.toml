@@ -1,13 +1,13 @@
 [project]
-name = "hexlet-code"  # Имя проекта
-version = "0.1.0"  # Версия
-description = "A package to compare files"  # Описание
+name = "hexlet-code"
+version = "0.1.0"
+description = "A package to compare files"
 authors = [
     {name = "RatiborM", email = "r_morkvin@vk.com"}
 ]
 
 [tool.poetry]
-name = "python-project-50"4
+name = "python-project-50"
 
 
 
