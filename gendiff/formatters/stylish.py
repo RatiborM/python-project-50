@@ -1,7 +1,4 @@
 def format_stylish(diff):
-    """
-    Formats the diff into a stylish format.
-    """
     def iter_diff(diff, depth=0):
         lines = []
         indent = '    ' * depth
@@ -13,6 +10,13 @@ def format_stylish(diff):
                     key = item.get('key')
                     status = item.get('operation')
                     value = item.get('value', None)
+
+                    # Обработка значений None и булевых
+                    if value is None:
+                        value = 'null'
+                    elif isinstance(value, bool):
+                        value = 'false' if value is False else 'true'
+
                     if status == 'added':
                         lines.append(f"{indent}  + {key}: {value}")
                     elif status == 'removed':
@@ -20,18 +24,27 @@ def format_stylish(diff):
                     elif status == 'unchanged':
                         lines.append(f"{indent}    {key}: {value}")
                     elif status == 'nested':
-                        nested_diff = iter_diff(item.get('value'), depth + 1)
+                        nested_diff = iter_diff(value, depth + 1)
                         lines.append(f"{indent}    {key}: {{\n{nested_diff}\n{indent}    }}")
                 else:
                     lines.append(f"{indent}  {item}")
         elif isinstance(diff, dict):
-            # Если diff - это словарь
-            for key, value in sorted(diff.items()):
-                if isinstance(value, dict) or isinstance(value, list):
+            for key, (status, value) in sorted(diff.items()):
+                # Обработка значений None и булевых
+                if value is None:
+                    value = 'null'
+                elif isinstance(value, bool):
+                    value = 'false' if value is False else 'true'
+
+                if status == 'added':
+                    lines.append(f"{indent}  + {key}: {value}")
+                elif status == 'removed':
+                    lines.append(f"{indent}  - {key}: {value}")
+                elif status == 'unchanged':
+                    lines.append(f"{indent}    {key}: {value}")
+                elif status == 'nested':
                     nested_diff = iter_diff(value, depth + 1)
                     lines.append(f"{indent}    {key}: {{\n{nested_diff}\n{indent}    }}")
-                else:
-                    lines.append(f"{indent}    {key}: {value}")
 
         return '\n'.join(lines)
 
