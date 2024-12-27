@@ -1,69 +1,38 @@
-from typing import Any
+def format_stylish(diff):
+    """
+    Formats the diff into a stylish format.
+    """
+    def iter_diff(diff, depth=0):
+        lines = []
+        indent = '    ' * depth
 
-DEFAULT_INDENT = 4
+        # Если diff - это список
+        if isinstance(diff, list):
+            for item in diff:
+                if isinstance(item, dict):
+                    key = item.get('key')
+                    status = item.get('operation')
+                    value = item.get('value', None)
+                    if status == 'added':
+                        lines.append(f"{indent}  + {key}: {value}")
+                    elif status == 'removed':
+                        lines.append(f"{indent}  - {key}: {value}")
+                    elif status == 'unchanged':
+                        lines.append(f"{indent}    {key}: {value}")
+                    elif status == 'nested':
+                        nested_diff = iter_diff(item.get('value'), depth + 1)
+                        lines.append(f"{indent}    {key}: {{\n{nested_diff}\n{indent}    }}")
+                else:
+                    lines.append(f"{indent}  {item}")
+        elif isinstance(diff, dict):
+            # Если diff - это словарь
+            for key, value in sorted(diff.items()):
+                if isinstance(value, dict) or isinstance(value, list):
+                    nested_diff = iter_diff(value, depth + 1)
+                    lines.append(f"{indent}    {key}: {{\n{nested_diff}\n{indent}    }}")
+                else:
+                    lines.append(f"{indent}    {key}: {value}")
 
-
-def to_str(value: Any, depth: int) -> str:
-    indent = ' ' * depth
-    if isinstance(value, dict):
-        lines = ['{']
-        for key, nested_value in value.items():
-            if isinstance(nested_value, dict):
-                new_value = to_str(nested_value, depth + DEFAULT_INDENT)
-                lines.append(f"{indent}    {key}: {new_value}")
-            else:
-                lines.append(f"{indent}    {key}: {nested_value}")
-        lines.append(f'{indent}}}')
         return '\n'.join(lines)
-    if isinstance(value, bool):
-        return str(value).lower()
-    if value is None:
-        return 'null'
-    return str(value)
 
-
-def line_forming(dictionary: dict, key: Any, depth: int, sign: str) -> str:
-    return f'{" " * depth}{sign}{dictionary["key"]}: ' \
-           f'{to_str(dictionary[key], depth + DEFAULT_INDENT)}'
-
-
-def build_stylish_iter(diff: dict, depth=0) -> str:
-    lines = ['{']
-    for dictionary in diff:
-        if dictionary['operation'] == 'same':
-            lines.append(line_forming(
-                dictionary, 'value',
-                depth, sign='    '
-            ))
-
-        if dictionary['operation'] == 'add':
-            lines.append(line_forming(
-                dictionary, 'new',
-                depth, sign='  + '
-            ))
-
-        if dictionary['operation'] == 'removed' or dictionary[
-                'operation'] == 'changed':
-            lines.append(line_forming(
-                dictionary, 'old',
-                depth, sign='  - '
-            ))
-
-        if dictionary['operation'] == 'changed':
-            lines.append(
-                line_forming(
-                    dictionary, 'new',
-                    depth, sign='  + '
-                ))
-
-        if dictionary['operation'] == 'nested':
-            new_value = build_stylish_iter(dictionary['value'],
-                                           depth + DEFAULT_INDENT)
-            lines.append(
-                f'{" " * depth}    {dictionary["key"]}: {new_value}')
-    lines.append(f'{" " * depth}}}')
-    return '\n'.join(lines)
-
-
-def render_stylish(diff: dict) -> str:
-    return build_stylish_iter(diff)
+    return f"{{\n{iter_diff(diff)}\n}}"
