@@ -10,4 +10,3 @@ def get_formatter(format_type):
         return format_stylish
     else:
         raise ValueError(f"Unknown format type: {format_type}")
-
