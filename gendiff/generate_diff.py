@@ -1,5 +1,6 @@
 import json
 
+
 def flatten(data, parent_key='', sep='.'):
     items = []
     for k, v in data.items():
@@ -9,6 +10,7 @@ def flatten(data, parent_key='', sep='.'):
         else:
             items.append((new_key, v))
     return dict(items)
+
 
 def generate_diff(file1, file2, format='stylish'):
     with open(file1, 'r') as f1:
