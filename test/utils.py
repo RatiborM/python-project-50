@@ -8,3 +8,4 @@ def read(filepath):
     """Читает содержимое файла и возвращает его как строку."""
     with open(filepath, 'r') as file:
         return file.read()
+
