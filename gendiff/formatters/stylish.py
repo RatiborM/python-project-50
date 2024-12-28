@@ -1,6 +1,8 @@
 from typing import Any
 
-def to_str(value: Any, depth: int, DEFAULT_INDENT=None) -> str:
+DEFAULT_INDENT = 4
+
+def to_str(value: Any, depth: int) -> str:
     indent = ' ' * depth
     if isinstance(value, dict):
         lines = ['{']
@@ -14,11 +16,9 @@ def to_str(value: Any, depth: int, DEFAULT_INDENT=None) -> str:
         return 'null'
     return str(value)
 
-
 def line_forming(dictionary: dict, key: Any, depth: int, sign: str) -> str:
     indent = ' ' * depth
     return f'{indent}{sign} {dictionary["key"]}: {to_str(dictionary[key], depth + DEFAULT_INDENT)}'
-
 
 def build_stylish_iter(diff: dict, depth=0) -> str:
     indent = ' ' * depth
@@ -39,7 +39,6 @@ def build_stylish_iter(diff: dict, depth=0) -> str:
             lines.append(f'{indent}    {dictionary["key"]}: {nested_value}')
     lines.append(f'{indent}}}')
     return '\n'.join(lines)
-
 
 def render_stylish(diff: dict) -> str:
     return build_stylish_iter(diff)
