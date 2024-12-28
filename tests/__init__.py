@@ -1,5 +1,5 @@
 import os
 
 
-def get_path(filename):
-    return os.path.join(os.path.dirname(__file__), filename)
+def get_path(file):
+    return os.path.join('tests', 'fixtures', file)

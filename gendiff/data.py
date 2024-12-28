@@ -10,3 +10,4 @@ def prepare_data(path_file: str):
             data = f.read()
             return data, extension
     raise ValueError(f"Unrecognized extension: {extension}")
+
