@@ -32,7 +32,8 @@ def build_diff(parced_data1: dict, parced_data2: dict):
             diff.append({
                 'key': key,
                 'operation': 'changed',
-                'old': parced_data1[key],
-                'new': parced_data2[key]
+                'old': parced_data1[key] if parced_data1[key] is not None else 'null',
+                'new': parced_data2[key] if parced_data2[key] is not None else 'null'
             })
+
     return diff
