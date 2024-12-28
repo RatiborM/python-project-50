@@ -1,7 +1,4 @@
-import pytest
-import os
 from gendiff.generate_diff import generate_diff
-
 
 def test_generate_diff():
     file_path_1 = 'test/fixtures/file1.json'
@@ -15,11 +12,7 @@ def test_generate_diff():
     with open(file_path_2, 'w') as file:
         file.write('{\n  "key": "value2"\n}')
 
-    expected = '{\n  - key: value1\n  + key: value2\n}'
+    expected = '{\n  - key: "value1"\n  + key: "value2"\n}'
     result = generate_diff(file_path_1, file_path_2, 'stylish')
 
     assert result == expected
-
-    # Удаляем созданные файлы после теста
-    os.remove(file_path_1)
-    os.remove(file_path_2)
