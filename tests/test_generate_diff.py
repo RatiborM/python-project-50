@@ -1,6 +1,9 @@
 import pytest
+
+
 from gendiff import generate_diff
-from tests.utils import get_path  # Убедитесь, что этот импорт корректен
+from tests.utils import get_path
+
 
 @pytest.mark.parametrize(
     "test_input1,test_input2, formater,  expected",
