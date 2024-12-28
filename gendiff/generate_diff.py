@@ -2,6 +2,7 @@ from gendiff.file_parser import parse_file
 from gendiff.calculate_diff import calculate_diff
 from gendiff.file_formatter import stylish_format, plain_format, json_format
 
+
 def generate_diff(file_path_1, file_path_2, format='stylish'):
     # Parse the files to get their contents
     data1 = parse_file(file_path_1)
