@@ -1,19 +1,21 @@
-def generate_diff(file_path_1, file_path_2, format='stylish'):
-    diff = {
-        "Property 'common.follow' was added with value: false",
-        "Property 'common.setting2' was removed",
-        "Property 'common.setting3' was updated. From true to null",
-        "Property 'common.setting4' was added with value: 'blah blah'",
-        "Property 'common.setting5' was added with value: [complex value]",
-        "Property 'common.setting6.doge.wow' was updated. From '' to 'so much'",
-        "Property 'group1.baz' was updated. From 'bas' to 'bars'",
-        "Property 'group1.nest' was updated. From [complex value] to 'str'",
-        "Property 'group2' was removed",
-        "Property 'group3' was added with value: [complex value]"
-    }
+from gendiff.file_parser import parse_file
+from gendiff.calculate_diff import calculate_diff
+from gendiff.file_formatter import stylish_format, plain_format, json_format
 
-    if format == 'plain':
-        return '\n'.join(sorted(diff))
+def generate_diff(file_path_1, file_path_2, format='stylish'):
+    # Parse the files to get their contents
+    data1 = parse_file(file_path_1)
+    data2 = parse_file(file_path_2)
+
+    # Calculate the difference
+    diff = calculate_diff(data1, data2)
+
+    # Format the difference in the specified format
+    if format == 'stylish':
+        return stylish_format(diff)
+    elif format == 'plain':
+        return plain_format(diff)
+    elif format == 'json':
+        return json_format(diff)
     else:
-        # Implement other formats if needed
-        pass
+        raise ValueError(f"Unknown format: {format}")

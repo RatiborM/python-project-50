@@ -9,5 +9,5 @@ def generate_expected_results():
     stylish_result = generate_diff(file1_path, file2_path, formater='stylish')
 
     # Сохранение результата
-    with open('tests/correct_result.txt', 'w') as file:
+    with open('test/correct_result.txt', 'w') as file:
         file.write(stylish_result)
