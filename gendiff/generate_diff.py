@@ -1,6 +1,5 @@
 import json
 
-
 def flatten(data, parent_key='', sep='.'):
     items = []
     for k, v in data.items():
@@ -10,7 +9,6 @@ def flatten(data, parent_key='', sep='.'):
         else:
             items.append((new_key, v))
     return dict(items)
-
 
 def generate_diff(file1, file2, format='stylish'):
     with open(file1, 'r') as f1:
@@ -26,7 +24,7 @@ def generate_diff(file1, file2, format='stylish'):
 
     all_keys = set(flat_data1.keys()).union(flat_data2.keys())
 
-    for key in all_keys:
+    for key in sorted(all_keys):
         if key not in flat_data1:
             diff.append(f"  + {key}: {json.dumps(flat_data2[key])}")
         elif key not in flat_data2:
@@ -35,4 +33,4 @@ def generate_diff(file1, file2, format='stylish'):
             diff.append(f"  - {key}: {json.dumps(flat_data1[key])}")
             diff.append(f"  + {key}: {json.dumps(flat_data2[key])}")
 
-    return '{\n' + '\n'.join(diff) + '\n}'
+    return '{\n' + '\n'.join(diff) + '\n}' if diff else '{}'
