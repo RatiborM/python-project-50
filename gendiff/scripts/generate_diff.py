@@ -1,21 +1,17 @@
-from .parser import parse_file
+import os
+from gendiff import generate_diff
 
-def generate_diff(file_path1, file_path2):
-    data1 = parse_file(file_path1)
-    data2 = parse_file(file_path2)
 
-    keys = sorted(data1.keys() | data2.keys())
-    diff_lines = []
+# Путь к директории, содержащей JSON и YAML файлы
+base_dir = os.path.dirname(os.path.abspath(__file__))
+fixtures_dir = os.path.abspath(os.path.join(base_dir, '../../test/fixtures'))
 
-    for key in keys:
-        if key not in data2:
-            diff_lines.append(f"  - {key}: {data1[key]}")
-        elif key not in data1:
-            diff_lines.append(f"  + {key}: {data2[key]}")
-        elif data1[key] != data2[key]:
-            diff_lines.append(f"  - {key}: {data1[key]}")
-            diff_lines.append(f"  + {key}: {data2[key]}")
-        else:
-            diff_lines.append(f"    {key}: {data1[key]}")
 
-    return "\n".join(["{"] + diff_lines + ["}"])
+# Путь к файлам
+file1_path = os.path.join(fixtures_dir, 'file1.yaml')
+file2_path = os.path.join(fixtures_dir, 'file2.yaml')
+
+
+# Генерация и вывод диффа
+diff = generate_diff(file1_path, file2_path)
+print(diff)

@@ -1,6 +1,7 @@
 import json
 import yaml
 
+
 def parse_file(file_path):
     """Определяет формат файла по его расширению и парсит содержимое."""
     if file_path.endswith(('.yaml', '.yml')):
@@ -10,10 +11,12 @@ def parse_file(file_path):
     else:
         raise ValueError(f"Unsupported file format: {file_path}")
 
+
 def read_json(file_path):
     """Читает и парсит JSON-файл."""
     with open(file_path, 'r') as file:
         return json.load(file)
+
 
 def read_yaml(file_path):
     """Читает и парсит YAML-файл."""
