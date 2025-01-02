@@ -1,8 +1,8 @@
-import json
+from .parser import parse_file
 
 def generate_diff(file_path1, file_path2):
-    data1 = read_json(file_path1)
-    data2 = read_json(file_path2)
+    data1 = parse_file(file_path1)
+    data2 = parse_file(file_path2)
 
     keys = sorted(data1.keys() | data2.keys())
     diff_lines = []
@@ -19,8 +19,3 @@ def generate_diff(file_path1, file_path2):
             diff_lines.append(f"    {key}: {data1[key]}")
 
     return "\n".join(["{"] + diff_lines + ["}"])
-
-def read_json(file_path):
-    """Читает и парсит JSON-файл."""
-    with open(file_path, 'r') as file:
-        return json.load(file)
