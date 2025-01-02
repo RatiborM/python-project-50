@@ -1,3 +1,5 @@
 {
-  "key": "value2"
+  "timeout": 20,
+  "verbose": true,
+  "host": "hexlet.io"
 }
