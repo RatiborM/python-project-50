@@ -11,13 +11,10 @@ pytest = "^8.3.4"
 pytest-cov = "^6.0.0"
 
 [tool.poetry.scripts]
-gendiff = "gendiff.scripts.gendiff:main"
+gendiff = "gendiff.cli:main"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
-
-[project]
-requires-python = ">=3.10"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
