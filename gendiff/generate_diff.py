@@ -3,6 +3,7 @@ import yaml
 from pathlib import Path
 from .diff import build_diff
 from .formatters.stylish import format_stylish
+from .formatters.plain import format_plain
 
 
 def parse_file(file_path):
@@ -31,6 +32,8 @@ def generate_diff(file_path1, file_path2, format_name='stylish'):
     diff = build_diff(data1, data2)
     if format_name == 'stylish':
         return format_stylish(diff)
+    elif format_name == 'plain':
+        return format_plain(diff)
     else:
         raise ValueError(f"Unsupported format: {format_name}")
 
