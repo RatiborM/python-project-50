@@ -2,7 +2,7 @@ install:
 	poetry install
 
 test:
-	PYTHONPATH=$(shell pwd) poetry run pytest
+	PYTHONPATH=. poetry run pytest
 
 test-coverage:
 	poetry run pytest --cov=gendiff --cov-report xml
