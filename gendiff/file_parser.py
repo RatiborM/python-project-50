@@ -3,6 +3,7 @@ import yaml
 
 
 def parse_file(filepath):
+    filepath = str(filepath)  # Преобразуем путь в строку
     if filepath.endswith('.json'):
         return parse_json(filepath)
     elif filepath.endswith('.yaml') or filepath.endswith('.yml'):
