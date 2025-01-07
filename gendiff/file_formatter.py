@@ -1,5 +1,6 @@
-import itertools
 import json
+import yaml
+import itertools
 
 
 ADD = '+ '
@@ -96,3 +97,13 @@ def plain_format(value, path=''):
 def json_format(value):
     result = json.dumps(value, indent=SPACESCOUNT)
     return result
+
+
+def format_to_json(data):
+    """Форматирует данные в JSON."""
+    return json.dumps(data, indent=2)
+
+
+def format_to_yaml(data):
+    """Форматирует данные в YAML."""
+    return yaml.dump(data, default_flow_style=False)

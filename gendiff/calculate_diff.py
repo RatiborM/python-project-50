@@ -1,8 +1,15 @@
-# Вставьте пустую строку перед функцией calculate_diff_entry
-def calculate_diff(file_data1, file_data2):
-    all_keys = file_data1.keys() | file_data2.keys()
-    diff_list = [calculate_diff_entry(file_data1, file_data2, key) for key in all_keys]
-    return diff_list
+def calculate_diff(data1, data2):
+    diff = {}
+    for key in data1.keys() | data2.keys():
+        if key not in data2:
+            diff[key] = {'status': 'removed', 'value': data1[key]}
+        elif key not in data1:
+            diff[key] = {'status': 'added', 'value': data2[key]}
+        elif data1[key] != data2[key]:
+            diff[key] = {'status': 'updated', 'old_value': data1[key], 'new_value': data2[key]}
+        else:
+            diff[key] = {'status': 'unchanged', 'value': data1[key]}
+    return diff
 
 
 def calculate_diff_entry(file_data1, file_data2, key):
