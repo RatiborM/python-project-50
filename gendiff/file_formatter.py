@@ -75,23 +75,21 @@ def plain_format(value, path=''):
         old_value = plain_format_item(i.get('old_value'))
         new_value = plain_format_item(i.get('new_value'))
         children_ = i.get('children')
+
         if current_path != '':
             deep_path = f'{current_path}.{key_}'
         else:
             deep_path = key_
 
-        match type_:
-            case 'changed':
-                lines.append(f"Property '{deep_path}' was updated. "
-                             f"From {old_value} to {new_value}")
-            case 'added':
-                lines.append(f"Property '{deep_path}' was added "
-                             f"with value: {new_value}")
-            case 'deleted':
-                lines.append(f"Property '{deep_path}' was removed")
-            case 'nested':
-                lines.append(plain_format(children_, deep_path))
-    return '\n'.join(lines)
+        if type_ == 'changed':
+            lines.append(f"Property '{deep_path}' was updated. From {old_value} to {new_value}")
+        elif type_ == 'added':
+            lines.append(f"Property '{deep_path}' was added with value: {new_value}")
+        elif type_ == 'deleted':
+            lines.append(f"Property '{deep_path}' was removed")
+        elif type_ == 'nested':
+            lines.extend(plain_format(children_, deep_path).split('\n'))
+    return '\n'.join(lines).strip()
 
 
 def json_format(value):
