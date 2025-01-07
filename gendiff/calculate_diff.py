@@ -49,22 +49,18 @@ def nested(key, value_1, value_2):
 
 
 def calculate_diff(file_data1, file_data2):
-    diff_list = []
     all_keys = file_data1.keys() | file_data2.keys()
     added_keys = file_data2.keys() - file_data1.keys()
     deleted_keys = file_data1.keys() - file_data2.keys()
-    list_keys = sorted(list(all_keys))
-    for k in list_keys:
-        value_1 = check_value(file_data1.get(k))
-        value_2 = check_value(file_data2.get(k))
-        if k in added_keys:
-            diff_list.append(added(k, value_2))
-        elif k in deleted_keys:
-            diff_list.append(deleted(k, value_1))
-        elif isinstance(value_1, dict) and isinstance(value_2, dict):
-            diff_list.append(nested(k, value_1, value_2))
-        elif value_1 == value_2:
-            diff_list.append(unchanged(k, value_1))
-        else:
-            diff_list.append(changed(k, value_1, value_2))
-    return diff_list
+
+    return [get_diff_entry(key, file_data1, file_data2, added_keys, deleted_keys) for key in all_keys]
+
+
+def get_diff_entry(key, file_data1, file_data2, added_keys, deleted_keys):
+    if key in added_keys:
+        return {'key': key, 'type': 'added', 'value': file_data2[key]}
+    elif key in deleted_keys:
+        return {'key': key, 'type': 'removed', 'value': file_data1[key]}
+    elif file_data1[key] != file_data2[key]:
+        return {'key': key, 'type': 'changed', 'old_value': file_data1[key], 'new_value': file_data2[key]}
+    return {'key': key, 'type': 'unchanged', 'value': file_data1[key]}

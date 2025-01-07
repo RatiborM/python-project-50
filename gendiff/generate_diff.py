@@ -1,44 +1,9 @@
 import json
 import yaml
-from pathlib import Path
+
 from .diff import build_diff
 from .formatters.stylish import format_stylish
 from .formatters.plain import format_plain
-from .formatters.json import format_json
-
-
-def parse_file(file_path):
-    file_path = Path(file_path)
-    if file_path.suffix in ('.yaml', '.yml'):
-        return read_yaml(file_path)
-    elif file_path.suffix == '.json':
-        return read_json(file_path)
-    else:
-        raise ValueError(f"Unsupported file format: {file_path}")
-
-
-def read_json(file_path):
-    with open(file_path, 'r') as file:
-        return json.load(file)
-
-
-def read_yaml(file_path):
-    with open(file_path, 'r') as file:
-        return yaml.safe_load(file)
-
-
-def generate_diff(file_path1, file_path2, format_name='stylish'):
-    data1 = parse_file(file_path1)
-    data2 = parse_file(file_path2)
-    diff = build_diff(data1, data2)
-    if format_name == 'stylish':
-        return format_stylish(diff)
-    elif format_name == 'plain':
-        return format_plain(diff)
-    elif format_name == 'json':
-        return format_json(diff)
-    else:
-        raise ValueError(f"Unsupported format: {format_name}")
 
 
 def flatten(data, parent_key='', sep='.'):
@@ -51,3 +16,24 @@ def flatten(data, parent_key='', sep='.'):
         else:
             items.append((new_key, v))
     return dict(items)
+
+
+def generate_diff(file_path1, file_path2, format_name='stylish'):
+    with open(file_path1) as f1, open(file_path2) as f2:
+        if file_path1.endswith('.json'):
+            data1 = json.load(f1)
+            data2 = json.load(f2)
+        else:
+            data1 = yaml.safe_load(f1)
+            data2 = yaml.safe_load(f2)
+
+    diff = build_diff(data1, data2)
+
+    if format_name == 'stylish':
+        return format_stylish(diff)
+    elif format_name == 'plain':
+        return format_plain(diff)
+    elif format_name == 'json':
+        return json.dumps(diff, indent=4)
+    else:
+        raise ValueError(f"Unknown format: {format_name}")
