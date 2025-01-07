@@ -1,5 +1,5 @@
 import os
-from gendiff import generate_diff
+from gendiff.utils import generate_diff
 
 
 # Путь к директории, содержащей JSON и YAML файлы
