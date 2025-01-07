@@ -1,28 +1,25 @@
 import json
 import yaml
-from .diff import build_diff
-from .formatters.stylish import format_stylish
-from .formatters.plain import format_plain
 
 
 def load_data(file_path):
-    with open(file_path) as file:
+    """Загружает данные из файла JSON или YAML."""
+    with open(file_path, 'r') as file:
         if file_path.endswith('.json'):
             return json.load(file)
-        return yaml.safe_load(file)
+        elif file_path.endswith('.yaml') or file_path.endswith('.yml'):
+            return yaml.safe_load(file)
+        else:
+            raise ValueError(f"Unsupported file format: {file_path}")
 
 
-def generate_diff(file_path1, file_path2, format_name='stylish'):
-    data1 = load_data(file_path1)
-    data2 = load_data(file_path2)
-
-    diff = build_diff(data1, data2)
-
-    if format_name == 'stylish':
-        return format_stylish(diff)
-    elif format_name == 'plain':
-        return format_plain(diff)
-    elif format_name == 'json':
-        return json.dumps(diff, indent=4)
-    else:
-        raise ValueError(f"Unknown format: {format_name}")
+def flatten(data, parent_key='', sep='.'):
+    """Функция для преобразования вложенного словаря в плоский словарь."""
+    items = []
+    for k, v in data.items():
+        new_key = f"{parent_key}{sep}{k}" if parent_key else k
+        if isinstance(v, dict):
+            items.extend(flatten(v, new_key, sep=sep).items())
+        else:
+            items.append((new_key, v))
+    return dict(items)

@@ -1,5 +1,5 @@
 import pytest
-from gendiff.generate_diff import flatten
+from gendiff.utils import flatten  # Импортируем flatten из utils
 
 def test_flatten():
     nested_dict = {
@@ -11,9 +11,9 @@ def test_flatten():
             }
         }
     }
-    expected_flat_dict = {
+    flat_dict = {
         'a': 1,
         'b.c': 2,
         'b.d.e': 3
     }
-    assert flatten(nested_dict) == expected_flat_dict
+    assert flatten(nested_dict) == flat_dict

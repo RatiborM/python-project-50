@@ -1,16 +1,26 @@
-def format_stylish(diff, depth=0):
-    indent = '    ' * depth
-    lines = [format_single_value(key, value, indent, depth) for key, value in diff.items()]
-    return '{\n' + '\n'.join(lines) + '\n' + indent + '}'
+def format_stylish(diff):
+    lines = []
+    for key, value in diff.items():
+        status = value['status']
+        if status == 'removed':
+            lines.append(f"  - {key}: {value['value']}")
+        elif status == 'added':
+            lines.append(f"  + {key}: {value['value']}")
+        elif status == 'unchanged':
+            lines.append(f"    {key}: {value['value']}")
+        elif status == 'updated':
+            lines.append(f"  - {key}: {value['old_value']}")
+            lines.append(f"  + {key}: {value['new_value']}")
+    return "{\n" + '\n'.join(lines) + "\n}"
 
 
-def format_single_value(key, value, indent, depth):
+def format_stylish_value(key, value, indent, depth):
     if isinstance(value, dict) and 'type' in value:
-        return handle_value_type(key, value, indent, depth)
+        return handle_stylish_type(key, value, indent, depth)
     return f"{indent}  {key}: {format_value(value)}"
 
 
-def handle_value_type(key, value, indent, depth):
+def handle_stylish_type(key, value, indent, depth):
     value_type = value['type']
     if value_type == 'added':
         return f"{indent}  + {key}: {format_value(value['value'])}"
@@ -22,7 +32,6 @@ def handle_value_type(key, value, indent, depth):
         return f"{indent}  {key}: {format_stylish(value['children'], depth + 1)}"
     elif value_type == 'changed':
         return f"{indent}  - {key}: {format_value(value['old_value'])}\n{indent}  + {key}: {format_value(value['new_value'])}"
-    return f"{indent}    {key}: {format_value(value['old_value'])} -> {format_value(value['new_value'])}"
 
 
 def format_value(value):
