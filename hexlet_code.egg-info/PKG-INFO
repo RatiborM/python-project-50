@@ -1,8 +1,0 @@
-Metadata-Version: 2.1
-Name: hexlet-code
-Version: 0.1.0
-Summary: A package for comparing configuration files
-Author-email: RatiborM <r_morkvin@vk.com>
-Requires-Python: >=3.10
-Requires-Dist: pytest>=8.3.4
-Requires-Dist: pytest-cov>=6.0.0
