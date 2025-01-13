@@ -1,0 +1,13 @@
+[project]
+name = "python-project-50"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pyyaml>=6.0.2",
+]
+dev-dependencies = [
+    "pytest>=8.3.4",
+    "pytest-coverage>=0.0",
+]
