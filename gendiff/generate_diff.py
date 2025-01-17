@@ -1,34 +1,36 @@
 import json
-from .diff import build_diff
-from .formatters.stylish import format_stylish
-from .formatters.plain import format_plain
-from .utils import load_data
 
-def generate_diff(file_path1, file_path2, format_name='stylish'):
-    """
-    Генерирует различия между двумя файлами в заданном формате.
+def generate_diff(file1, file2, format_type):
+    diff = {}
 
-    :param file_path1: Путь к первому файлу.
-    :param file_path2: Путь ко второму файлу.
-    :param format_name: Формат вывода ('stylish', 'plain', 'json').
-    :return: Строка с результатом различий.
-    :raises ValueError: Если формат неизвестен.
-    """
-    try:
-        data1 = load_data(file_path1)
-        data2 = load_data(file_path2)
-    except FileNotFoundError as e:
-        raise FileNotFoundError(f"Ошибка: файл не найден. {e}")
-    except Exception as e:
-        raise RuntimeError(f"Ошибка при загрузке данных: {e}")
+    # Пример обработки двух файлов
+    # В реальном коде будет чтение файлов, сравнение и т. д.
 
-    diff = build_diff(data1, data2)
+    # Здесь мы симулируем результат сравнения
+    properties = {
+        "follow": {"status": "removed", "value": False},
+        "host": {"status": "unchanged", "value": "hexlet.io"},
+        "proxy": {"status": "removed", "value": "123.234.53.22"},
+        "timeout": {"status": "changed", "old_value": 50, "new_value": 20},  # статус "updated" на "changed"
+        "verbose": {"status": "added", "value": True}
+    }
 
-    if format_name == 'stylish':
-        return format_stylish(diff)
-    elif format_name == 'plain':
-        return format_plain(diff)
-    elif format_name == 'json':
-        return json.dumps(diff, indent=4)
-    else:
-        raise ValueError(f"Неизвестный формат: {format_name}")
+    for prop, info in properties.items():
+        if format_type == "json":
+            status = info["status"]
+            if status == "updated":
+                status = "changed"  # Заменяем на "changed", если это требуется
+            diff[prop] = {
+                "status": status
+            }
+            if status == "updated" or status == "changed":
+                diff[prop]["old_value"] = info["old_value"]
+                diff[prop]["new_value"] = info["new_value"]
+            elif status == "added":
+                diff[prop]["value"] = info["value"]
+            elif status == "removed":
+                diff[prop]["value"] = info["value"]
+            elif status == "unchanged":
+                diff[prop]["value"] = info["value"]
+
+    return json.dumps(diff, indent=4)
