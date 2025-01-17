@@ -1,0 +1,8 @@
+{
+    host: hexlet.io
+  - follow: false
+  + follow: true
+    proxy: 123.234.53.22
+- timeout: 50
++ timeout: 20
+}
