@@ -24,3 +24,4 @@ def test_read_yaml():
     assert actual["timeout"] == EXPECTED["timeout"]
     assert actual["proxy"] == EXPECTED["proxy"]
     assert actual["follow"] == EXPECTED["follow"]
+    
