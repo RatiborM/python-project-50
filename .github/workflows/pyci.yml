@@ -54,7 +54,7 @@ jobs:
           poetry install
       - name: Upload coverage to CodeClimate
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.02aa26804868ec727cb5d55a2c8f9a22280052c93f9894ab19c6d1f70a203143 }}
+          CC_TEST_REPORTER_ID: ${{ secrets.eb949c4333faf1370596d778615df7bfdcdf952a01dffa2e1f9c9e008de41091 }}
         run: |
           pip install codeclimate-test-reporter
           codeclimate-test-reporter < coverage.xml
