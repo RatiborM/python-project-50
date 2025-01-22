@@ -1,31 +1,24 @@
 install:
 	uv sync
 
-gendiff:
-	uv run gendiff files/file1.json files/file2.json
-
-build:
-	uv build
-
-package-install:
-	uv tool install dist/*.whl
-
-lint:
-	uv run ruff check gendiff
+run:
+	uv run gendiff
 
 test:
 	uv run pytest
 
 test-coverage:
-	uv run pytest --cov=gendiff --cov-report xml
+	uv run pytest --cov-report xml --cov ./tests
 
-selfcheck:
-	uv check
+lint:
+	uv run ruff check
 
-check:
-	test lint
+lint-fix:
+	uv run ruff check --fix
 
-reinstall:
-	pip install --user --force-reinstall dist/*.whl
+check: test lint
+
+build:
+	uv build
 
 .PHONY: install test lint selfcheck check build
