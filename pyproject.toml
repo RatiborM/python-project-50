@@ -5,10 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "pytest-cov>=6.0.0",
-    "pytest>=8.3.4",
     "pyyaml>=6.0.2",
-    "asciinema>=2.4.0",
 ]
 
 [build-system]
@@ -20,8 +17,13 @@ packages = ["gendiff"]
 
 [dependency-groups]
 dev = [
+    "pytest-cov>=6.0.0",
+    "pytest>=8.3.4",
     "ruff>=0.8.4",
 ]
+
+[tool.coverage.run]
+disable_warnings = ["no-data-collected"]
 
 [project.scripts]
 gendiff = "gendiff.scripts.gendiff:main"
