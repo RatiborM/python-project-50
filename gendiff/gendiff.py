@@ -16,7 +16,7 @@ def read_file_content(filename):
 def parse_content(content, file_extension):
     file_extension = file_extension.lower()
 
-    if file_extension == '.yml' or file_extension == '.yaml':
+    if file_extension in ['.yml', '.yaml']:
         return yaml.safe_load(content)
     elif file_extension == '.json':
         return json.loads(content)
@@ -29,40 +29,26 @@ def parse_file(filename):
 
 
 def build_diff(data1, data2):
-    keys = sorted(list({**data1, **data2}.keys()))
+    keys = sorted(set(data1.keys()).union(data2.keys()))
     diff = {}
     for key in keys:
         if key not in data1:
-            diff[key] = {
-                'status': 'added',
-                'value': data2[key],
-            }
+            diff[key] = {'status': 'added', 'value': data2[key]}
         elif key not in data2:
-            diff[key] = {
-                'status': 'removed',
-                'value': data1[key]
-            }
+            diff[key] = {'status': 'removed', 'value': data1[key]}
         elif isinstance(data1[key], dict) and isinstance(data2[key], dict):
-            diff[key] = {
-                'status': 'unchanged',
-                'value': build_diff(data1[key], data2[key])
-            }
+            diff[key] = {'status': 'nested', 'value': build_diff(data1[key], data2[key])}
         elif data1[key] == data2[key]:
-            diff[key] = {
-                'status': 'unchanged',
-                'value': data2[key]
-            }
+            diff[key] = {'status': 'unchanged', 'value': data1[key]}
         else:
-            diff[key] = {
-                'status': 'changed',
-                'old_value': data1[key],
-                'new_value': data2[key]
-            }
+            diff[key] = {'status': 'changed', 'old_value': data1[key], 'new_value': data2[key]}
     return diff
 
 
 def generate_diff(first_file, second_file, format_type='stylish'):
-    diff = build_diff(parse_file(first_file), parse_file(second_file))
+    data1 = parse_file(first_file)
+    data2 = parse_file(second_file)
+    diff = build_diff(data1, data2)
 
     if format_type == 'stylish':
         return format_stylish(diff)
