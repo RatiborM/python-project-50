@@ -28,11 +28,11 @@
 
 ## сравнение двух файлов:
 
-`gendiff file1.json file2.json`
+`gendiff tests/test_data/file1.json tests/test_data/file2.json`
 
 ## сравнение двух файлов плоского формата:
 
-`gendiff --format plain file1.yml file2.yml`
+`gendiff --format plain tests/fixtures/file1.yml tests/fixtures/file2.yml`
 
 ## сравнение двух файлов .JSON формата:
 

@@ -1,4 +1,3 @@
-from gendiff.gendiff import generate_diff
-from gendiff.json import format_json
-from gendiff.plain import format_plain
-from gendiff.stylish import format_stylish
+from gendiff.core import generate_diff
+
+__all__ = ["generate_diff"]
