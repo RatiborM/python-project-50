@@ -3,42 +3,42 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/acd05649de1fc98c22bc/maintainability)](https://codeclimate.com/github/RatiborM/python-project-50/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/acd05649de1fc98c22bc/test_coverage)](https://codeclimate.com/github/RatiborM/python-project-50/test_coverage)
 
-# Description:
+# Описание:
 
-Project is about finding difference between files using cli tools
+Проект для поиска отличий в файлах
 
 
-## install:
+## Установка:
 
 `make install`
 
-## build:
+## Сборка:
 
 `make build`
 
-## package install:
+## Установка пакета:
 
 `make package-install`
 
-## usage:
+## Использование:
 
-## Show help:
+## Помощь:
     
 `gendiff -h`
 
-## Compare two files (default: stylish format):
+## сравнение двух файлов:
 
 `gendiff file1.json file2.json`
 
-## Compare two files in plain format:
+## сравнение двух файлов плоского формата:
 
 `gendiff --format plain file1.yml file2.yml`
 
-## Compare two files in JSON format:
+## сравнение двух файлов .JSON формата:
 
 `gendiff --format json file1.json file2.json`
 
 
-**To remove project just run `rm -rf .`**
+**Удаление проекта `rm -rf .`**
 
-## Asciinema's
+## Asciinema's:
