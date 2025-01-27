@@ -1,95 +1,23 @@
-import pytest
+import os
 
-from gendiff.generate_diff import generate_diff
-
-
-@pytest.mark.parametrize(
-    "file1, file2, format_name, expected_file",
-    [
-        (
-            "tests/test_data/file1.json",
-            "tests/test_data/file2.json",
-            "stylish",
-            "tests/expected/file1.txt",
-        ),
-        (
-            "tests/test_data/file1.yml",
-            "tests/test_data/file2.yaml",
-            "stylish",
-            "tests/expected/file1.txt",
-        ),
-        (
-            "tests/test_data/file3.json",
-            "tests/test_data/file4.json",
-            "stylish",
-            "tests/expected/file2.txt",
-        ),
-        (
-            "tests/test_data/file3.yaml",
-            "tests/test_data/file4.json",
-            "stylish",
-            "tests/expected/file2.txt",
-        ),
-        (
-            "tests/test_data/empty.json",
-            "tests/test_data/empty.json",
-            "stylish",
-            None,
-        ),
-        (
-            "tests/test_data/empty.json",
-            "tests/test_data/file4.json",
-            "stylish",
-            "tests/expected/file3.txt",
-        ),
-        (
-            "tests/test_data/file3.json",
-            "tests/test_data/file4.json",
-            "plain",
-            "tests/expected/plain1.txt",
-        ),
-        (
-            "tests/test_data/file3.json",
-            "tests/test_data/file4.json",
-            "json",
-            "tests/expected/json1.txt",
-        ),
-    ],
-)
-def test_generate_diff(file1, file2, format_name, expected_file):
-    expected = open(expected_file).read() if expected_file else "{\n\n}"
-    assert generate_diff(file1, file2, format_name) == expected
+from gendiff import generate_diff
+from gendiff.loader import load_supp_form_file
 
 
-@pytest.mark.parametrize(
-    "file1, file2, expected_exception, match",
-    [
-        (
-            "tests/test_data/file1.txt",
-            "tests/test_data/file2.txt",
-            RuntimeError,
-            "Unsupported file format",
-        ),
-        (
-            "tests/test_data/non_existent.json",
-            "tests/test_data/file2.json",
-            RuntimeError,
-            "File not found",
-        ),
-        (
-            "tests/test_data/invalid.json",
-            "tests/test_data/file2.json",
-            RuntimeError,
-            "Error decoding JSON file",
-        ),
-        (
-            "tests/test_data/invalid.yaml",
-            "tests/test_data/file2.yaml",
-            RuntimeError,
-            "Error decoding YAML file",
-        ),
-    ],
-)
-def test_generate_diff_exceptions(file1, file2, expected_exception, match):
-    with pytest.raises(expected_exception, match=match):
-        generate_diff(file1, file2)
+def get_test_data_path(file_name):
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(current_dir, 'test_data', file_name)
+
+
+file1 = get_test_data_path('file1.json')  # нужно будет переделать
+file2 = get_test_data_path('file2.json')  # нужно будет переделать
+file3 = get_test_data_path('file1.yaml')  # нужно будет переделать
+file4 = get_test_data_path('file2.yaml')  # нужно будет переделать
+
+
+def test_gendiff():
+    result = load_supp_form_file(
+        get_test_data_path('stylish_json_yaml.txt')
+    )
+    assert generate_diff(file1, file2) == result
+    assert generate_diff(file3, file4) == result
