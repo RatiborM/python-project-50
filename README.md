@@ -3,31 +3,86 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/acd05649de1fc98c22bc/maintainability)](https://codeclimate.com/github/RatiborM/python-project-50/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/acd05649de1fc98c22bc/test_coverage)](https://codeclimate.com/github/RatiborM/python-project-50/test_coverage)
 
-# Gendiff
+# Gendiff: Найти различия между файлами
 
-Welcome to the Gendiff project! This project is designed to help you compare configuration files and see the differences between them. It supports various formats such as JSON, YAML, and YML. The tool provides a clear and structured output, making it easy to understand the changes.
+Gendiff — это мощный CLI-инструмент для поиска различий между файлами. Он поддерживает различные форматы и предоставляет результаты в стильном, простом или JSON формате.
 
-## Requirements
+---
 
-To run this project, you need to have the following software installed:
+## 🚀 Возможности
 
-- Python >=3.10.0
-- Uv
+- Легкое сравнение JSON и YAML файлов.
+- Поддержка нескольких форматов вывода: Stylish, Plain и JSON.
+- Легкий и удобный CLI-инструмент.
 
-## Installation
+---
 
-To set up the project, navigate to the project directory and run the following command:
+## 📦 Установка
 
+### Шаг 1: Установите зависимости
 ```bash
-package-install
+make install
 ```
 
-## Usage
+### Шаг 2: Соберите проект
+```bash
+make build
+```
 
-To start using the Brain Games, use the following command:
+### Шаг 3: Установите пакет
+```bash
+make package-install
+```
 
+---
+
+## 🛠️ Использование
+
+### Показать справку
 ```bash
 gendiff -h
 ```
+
+### Сравнить два файла (по умолчанию: Stylish формат)
 ```bash
-gendiff path/file1.json path/file2.yaml | file.yml
+gendiff tests/fixtures/file1.json tests/fixtures/file2.json
+```
+
+### Сравнить два файла в Plain формате
+```bash
+gendiff --format plain tests/fixtures/file1.yml tests/fixtures/file2.yml
+```
+
+
+
+### Сравнить два файла в JSON формате
+```bash
+gendiff --format json tests/fixtures/file1.json tests/fixtures/file2.json
+```
+
+---
+
+## 🧹 Очистка
+
+Для полного удаления проекта выполните:
+```bash
+rm -rf .
+```
+
+## Демонстрация
+
+### `Вывод справки через флаг -h`
+
+[![asciicast](https://asciinema.org/a/Lh27JDsBGNTUTWyEm97xgjGsi.svg)](https://asciinema.org/a/Lh27JDsBGNTUTWyEm97xgjGsi)
+
+
+### `Два файла (по умолчанию stylish)`
+[![asciicast](https://asciinema.org/a/NN8aXZ3TKZ0xpWDNissRI95O2.svg)](https://asciinema.org/a/NN8aXZ3TKZ0xpWDNissRI95O2)
+
+### `Два файла в plain-формате`
+[![asciicast](https://asciinema.org/a/np1ppxfh5GZFqG0oX3iOkVI1h.svg)](https://asciinema.org/a/np1ppxfh5GZFqG0oX3iOkVI1h)
+
+### `Два файла в JSON-формате`
+[![asciicast](https://asciinema.org/a/Ux7IUUChVAGZd1gqtqWjl9Oye.svg)](https://asciinema.org/a/Ux7IUUChVAGZd1gqtqWjl9Oye)
+## 📖 Лицензия
+Этот проект лицензирован на условиях лицензии MIT.
