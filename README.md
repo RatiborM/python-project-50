@@ -3,42 +3,35 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/acd05649de1fc98c22bc/maintainability)](https://codeclimate.com/github/RatiborM/python-project-50/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/acd05649de1fc98c22bc/test_coverage)](https://codeclimate.com/github/RatiborM/python-project-50/test_coverage)
 
-# Description:
+# Gendiff
 
-Project is about finding difference between files using cli tools
+Welcome to the Gendiff project! This project is designed to help you compare configuration files and see the differences between them. It supports various formats such as JSON, YAML, and YML. The tool provides a clear and structured output, making it easy to understand the changes.
 
+## Requirements
 
-## install:
+To run this project, you need to have the following software installed:
 
-`make install`
+- Python >=3.12.0
+- Uv
 
-## build:
+## Installation
 
-`make build`
+To set up the project, navigate to the project directory and run the following command:
 
-## package install:
+```bash
+make i
+```
+or
+```bash
+uv tool install .
+```
 
-`make package-install`
+## Usage
 
-## usage:
+To start using the Brain Games, use the following command:
 
-## Show help:
-    
-`gendiff -h`
-
-## Compare two files (default: stylish format):
-
-`gendiff tests/test_data/file1.json tests/test_data/file2.json`
-
-## Compare two files in plain format:
-
-`gendiff --format plain tests/test_data/file1.yml tests/test_data/file2.yml`
-
-## Compare two files in JSON format:
-
-`gendiff --format json file1.json file2.json`
-
-
-**To remove project just run `rm -rf .`**
-
-## Asciinema's
+```bash
+gendiff -h
+```
+```bash
+gendiff path/file1.json path/file2.yaml | file.yml
