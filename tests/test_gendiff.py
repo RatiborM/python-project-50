@@ -1,23 +1,94 @@
-import os
-
-from gendiff import generate_diff
-from gendiff.loader import load_supp_form_file
-
-
-def get_test_data_path(file_name):
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    return os.path.join(current_dir, 'test_data', file_name)
+import pytest
+from gendiff.generate_diff import generate_diff
+from gendiff.load_files import load_files
 
 
-file1 = get_test_data_path('file1.json')  # нужно будет переделать
-file2 = get_test_data_path('file2.json')  # нужно будет переделать
-file3 = get_test_data_path('file1.yaml')  # нужно будет переделать
-file4 = get_test_data_path('file2.yaml')  # нужно будет переделать
+def get_result(path_file):
+    with open(path_file, "r") as file:
+        return file.read()
 
 
-def test_gendiff():
-    result = load_supp_form_file(
-        get_test_data_path('stylish_json_yaml.txt')
-    )
-    assert generate_diff(file1, file2) == result
-    assert generate_diff(file3, file4) == result
+@pytest.mark.parametrize(
+    "file1, file2, formatter, result", [
+        (
+            "tests/fixtures/file1.json",
+            "tests/fixtures/file2.json",
+            "json",
+            "tests/fixtures/result_json.txt",
+        ),
+        (
+            "tests/fixtures/file1.yml",
+            "tests/fixtures/file2.yml",
+            "json",
+            "tests/fixtures/result_json.txt",
+        ),
+        (
+            "tests/fixtures/file1.yml",
+            "tests/fixtures/file2.json",
+            "json",
+            "tests/fixtures/result_json.txt",
+        ),
+        (
+            "tests/fixtures/file1.json",
+            "tests/fixtures/file2.json",
+            "stylish",
+            "tests/fixtures/result_stylish.txt",
+        ),
+        (
+            "tests/fixtures/file1.yml",
+            "tests/fixtures/file2.yml",
+            "stylish",
+            "tests/fixtures/result_stylish.txt",
+        ),
+        (
+            "tests/fixtures/file1.yml",
+            "tests/fixtures/file2.json",
+            "stylish",
+            "tests/fixtures/result_stylish.txt",
+        ),
+        (
+            "tests/fixtures/file1.json",
+            "tests/fixtures/file2.json",
+            "plain",
+            "tests/fixtures/result_plain.txt",
+        ),
+        (
+            "tests/fixtures/file1.yml",
+            "tests/fixtures/file2.yml",
+            "plain",
+            "tests/fixtures/result_plain.txt",
+        ),
+        (
+            "tests/fixtures/file1.yml",
+            "tests/fixtures/file2.json",
+            "plain",
+            "tests/fixtures/result_plain.txt",
+        )
+    ]
+)
+def test_generate_diff_formatters(file1, file2, formatter, result):
+    assert generate_diff(file1, file2, formatter) == get_result(result)
+
+
+def test_unsupported_file_extension():
+    with pytest.raises(
+            ValueError,
+            match=(
+                    "Unsupported file format: .some_extension "
+                    "Expected '.yaml', '.yml' or '.json'."
+            )
+    ):
+        load_files('file.some_extension')
+
+
+def test_unsupported_formatter():
+    with pytest.raises(
+            ValueError,
+            match=(
+                    "Unsupported format: Some_formatter. "
+                    "Expected 'json', 'stylish', or 'plain'"
+            )
+        ):
+        generate_diff('tests/fixtures/file1.json',
+                      'tests/fixtures/file2.json',
+                      formatter='Some_formatter')

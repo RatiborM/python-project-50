@@ -1,17 +1,26 @@
 install:
 	uv sync
 
-run-help-gd:
-	uv run gendiff -h
+upgrade:
+	uv sync --upgrade
 
-run-json-stylish:
-	uv run gendiff -f stylish tests/test_data/file1.json tests/test_data/file2.json
+package-remove:
+	python3 -m pip uninstall hexlet_code
 
-run-yaml-stylish:
-	uv run gendiff -f stylish tests/test_data/file1.yaml tests/test_data/file2.yaml
+build:
+	uv build
 
-run-json-plain:
-	uv run gendiff -f plain tests/test_data/file1.json tests/test_data/file2.json
+package-install:
+	python3 -m pip install --user dist/*.whl
+
+package-reinstall:
+	python3 -m pip install --user --force-reinstall dist/*whl
+
+gendiff:
+	uv run gendiff
+
+lint:
+	uv run flake8 gendiff
 
 test:
 	uv run pytest
@@ -19,11 +28,5 @@ test:
 test-coverage:
 	uv run pytest --cov=gendiff --cov-report xml
 
-lint:
-	uv run ruff check
-
-lint-fix:
-	uv run ruff check --fix
-
-build:
-	uv build
+tests:
+	uv run pytest -vv

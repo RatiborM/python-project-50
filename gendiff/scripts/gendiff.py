@@ -1,12 +1,17 @@
-#!/usr/bin/env python3
-from gendiff import generate_diff
-from gendiff.parser import parse_args
+#!usr/bin/env python3
+
+from gendiff.cli import cli_parser
+from gendiff.generate_diff import generate_diff
 
 
 def main():
-    args = parse_args()
-    print(generate_diff(args.first_file, args.second_file, args.format))
+    args = cli_parser()
+    formatter = args.format
+    print(generate_diff(args.first_file,
+                        args.second_file,
+                        formatter)
+          )
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

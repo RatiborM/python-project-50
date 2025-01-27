@@ -1,26 +1,48 @@
 [project]
-name = "hexlet-code"
-version = "0.1.0"
-description = ""
-readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-    "pyyaml>=6.0.2",
+authors = [
+    {name = "Aleksey_Kuznetsov", email = "aleksejkuznecov07096@gmail.com"}
 ]
+repository = "https://github.com/Mirroel-Alvares/python-project-50/tree/main"
+name = "hexlet-code"
+version = "0.3.1"
+description = "Difference calculator"
+readme = "README.md"
+requires-python = ">=3.10"
+
+classifiers = [
+  'Development Status :: 3 - Alpha',
+  'Environment :: Console',
+  'Intended Audience :: End Users/Desktop',
+  'Intended Audience :: Education',
+  'License :: Free For Educational Use',
+  'Natural Language :: English',
+  'Operating System :: Microsoft',
+  'Operating System :: Unix',
+  'Programming Language :: Python :: 3.10',
+  'Topic :: Software Development'
+]
+
+dependencies = [
+    "pytest>=8.3.4",
+    "flake8>=7.1.1",
+    "pyyaml>=6.0.2",
+    "pytest-cov>=5.0.0",
+    "pyyaml>=6.0.2"
+]
+
+[tool.uv]
+[dependency-groups]
+dev-dependencies = []
+
+[project.scripts]
+gendiff = "gendiff.scripts.gendiff:main"
+
+[tool.hatch.build.targets.sdist]
+include = ["gendiff"]
+
+[tool.hatch.build.targets.wheel]
+include = ["gendiff"]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
-
-[tool.hatch.build.targets.wheel]
-packages = ["gendiff"]
-
-[dependency-groups]
-dev = [
-    "pytest-cov>=6.0.0",
-    "pytest>=8.3.4",
-    "ruff>=0.9.2",
-]
-
-[project.scripts]
-gendiff = "gendiff.scripts.gendiff:main"
