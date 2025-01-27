@@ -1,8 +1,8 @@
 [project]
 authors = [
-    {name = "Aleksey_Kuznetsov", email = "aleksejkuznecov07096@gmail.com"}
+    {name = "RatiborM", email = "r_morkvin@vk.com"}
 ]
-repository = "https://github.com/Mirroel-Alvares/python-project-50/tree/main"
+repository = "https://github.com/RatiborM/python-project-50"
 name = "hexlet-code"
 version = "0.3.1"
 description = "Difference calculator"

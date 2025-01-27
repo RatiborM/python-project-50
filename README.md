@@ -11,7 +11,7 @@ Welcome to the Gendiff project! This project is designed to help you compare con
 
 To run this project, you need to have the following software installed:
 
-- Python >=3.12.0
+- Python >=3.10.0
 - Uv
 
 ## Installation
@@ -19,11 +19,7 @@ To run this project, you need to have the following software installed:
 To set up the project, navigate to the project directory and run the following command:
 
 ```bash
-make i
-```
-or
-```bash
-uv tool install .
+package-install
 ```
 
 ## Usage
