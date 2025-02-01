@@ -19,7 +19,7 @@ def load_yaml(data):
 
 def read_file(filepath):
     with open(filepath, 'r') as file:
-            return file.read()
+        return file.read()
 
 
 def get_data_format(file_path):
