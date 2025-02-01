@@ -1,9 +1,17 @@
 from gendiff.get_diff import get_diff
-from gendiff.load_files import load_files
+from gendiff.parser import read_file, get_data_format, parse_data
 from gendiff.formatters import get_format
 
 
-def generate_diff(file1_pass, file2_pass, formatter='stylish'):
-    file1, file2 = load_files(file1_pass), load_files(file2_pass)
+def generate_diff(file1_path, file2_path, formatter='stylish'):
+    file1_data = read_file(file1_path)
+    file2_data = read_file(file2_path)
+
+    file1_format = get_data_format(file1_path)
+    file2_format = get_data_format(file2_path)
+
+    data1 = parse_data(file1_data, file1_format)
+    data2 = parse_data(file2_data, file2_format)
+
     formatter = get_format(formatter)
-    return formatter(get_diff(file1, file2))
+    return formatter(get_diff(data1, data2))

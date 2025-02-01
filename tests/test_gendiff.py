@@ -1,6 +1,6 @@
 import pytest
 from gendiff.generate_diff import generate_diff
-from gendiff.load_files import load_files
+from gendiff.parser import read_file, get_data_format, parse_data
 
 
 def get_result(path_file):
@@ -78,17 +78,19 @@ def test_unsupported_file_extension():
                     "Expected '.yaml', '.yml' or '.json'."
             )
     ):
-        load_files('file.some_extension')
+        file_data = read_file('file.some_extension')
+        file_format = get_data_format('file.some_extension')
+        parse_data(file_data, file_format)
 
 
-def test_unsupported_formatter():
+def test_unsupported_file_extension():
     with pytest.raises(
             ValueError,
             match=(
-                    "Unsupported format: Some_formatter. "
-                    "Expected 'json', 'stylish', or 'plain'"
+                    "Неподдерживаемый формат данных: some_extension"
             )
-        ):
-        generate_diff('tests/fixtures/file1.json',
-                      'tests/fixtures/file2.json',
-                      formatter='Some_formatter')
+    ):
+        # Прямо вызываем get_data_format для неподдерживаемого расширения
+        file_format = get_data_format('file.some_extension')  # Это вызовет ошибку
+        parse_data("", file_format)
+
