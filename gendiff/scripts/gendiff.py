@@ -1,27 +1,11 @@
 import sys
-import argparse
 from gendiff.parser import read_file, get_data_format, parse_data
 from gendiff.generate_diff import generate_diff
+from gendiff.cli import cli_parser
 
 
 def main():
-    # Инициализация парсера аргументов командной строки
-    parser = argparse.ArgumentParser(
-        description="Сравнение файлов для генерации различий"
-    )
-    parser.add_argument('first_file', help="Первый файл для сравнения")
-    parser.add_argument('second_file', help="Второй файл для сравнения")
-    parser.add_argument(
-        '--formatter',
-        choices=['json', 'plain', 'stylish'],
-        default='stylish',
-        help="Формат вывода"
-    )
-
-    # Получаем аргументы командной строки
-    args = parser.parse_args()
-
-    # Определяем formatter
+    args = cli_parser()
     formatter = args.formatter
 
     try:
