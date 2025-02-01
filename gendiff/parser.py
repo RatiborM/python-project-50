@@ -24,6 +24,7 @@ def get_file_extension(file):
 def read_file(filepath):
     if not isinstance(filepath, str):
         raise TypeError(f"Ожидался строковый путь, получен {type(filepath)}")
+    print(f"Открываем файл по пути: {filepath}")  # Это поможет отследить, что передается в функцию
     try:
         with open(filepath, 'r') as file:
             return file.read()
