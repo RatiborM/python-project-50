@@ -6,7 +6,7 @@ from gendiff.cli import cli_parser
 
 def main():
     args = cli_parser()
-    formatter = args.formatter
+    formatter = args.format
 
     try:
         # Чтение данных из файлов
