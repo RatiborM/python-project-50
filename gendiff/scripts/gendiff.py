@@ -1,5 +1,4 @@
 import sys
-from gendiff.parser import read_file, get_data_format, parse_data
 from gendiff.generate_diff import generate_diff
 from gendiff.cli import cli_parser
 
