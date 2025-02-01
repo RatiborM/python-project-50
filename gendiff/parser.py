@@ -2,11 +2,13 @@ import os
 import json
 import yaml
 
+
 def load_json(data):
     try:
         return json.loads(data)
     except json.JSONDecodeError:
         raise ValueError("Ошибка декодирования JSON данных")
+
 
 def load_yaml(data):
     try:

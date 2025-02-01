@@ -66,6 +66,8 @@ def get_result(path_file):
         )
     ]
 )
+
+
 def test_generate_diff_formatters(file1, file2, formatter, result):
     assert generate_diff(file1, file2, formatter) == get_result(result)
 
