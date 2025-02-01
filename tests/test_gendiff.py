@@ -2,11 +2,9 @@ import pytest
 from gendiff.generate_diff import generate_diff
 from gendiff.parser import get_data_format
 
-
 def get_result(path_file):
     with open(path_file, "r") as file:
         return file.read()
-
 
 @pytest.mark.parametrize(
     "file1, file2, formatter, result", [
@@ -69,17 +67,14 @@ def get_result(path_file):
 def test_generate_diff_formatters(file1, file2, formatter, result):
     assert generate_diff(file1, file2, formatter) == get_result(result)
 
-
 def test_unsupported_file_extension():
     with pytest.raises(
             ValueError,
             match=(
-                "Unsupported file format: .some_extension "
-                "Expected '.yaml', '.yml' or '.json'."
+                "Неподдерживаемый формат: some_extension"
             )
     ):
         get_data_format('file.some_extension')
-
 
 def test_unsupported_file_extension_direct():
     with pytest.raises(
