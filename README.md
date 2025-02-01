@@ -71,6 +71,10 @@ rm -rf .
 
 ## Демонстрация
 
+### `Установка`
+
+[![asciicast](https://asciinema.org/a/ewi8Rp5ZDJbS7460Y2WxjXc7a.svg)](https://asciinema.org/a/ewi8Rp5ZDJbS7460Y2WxjXc7a)
+
 ### `Вывод справки через флаг -h`
 
 [![asciicast](https://asciinema.org/a/Lh27JDsBGNTUTWyEm97xgjGsi.svg)](https://asciinema.org/a/Lh27JDsBGNTUTWyEm97xgjGsi)
