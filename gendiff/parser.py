@@ -22,6 +22,8 @@ def get_file_extension(file):
 
 
 def read_file(filepath):
+    if not isinstance(filepath, str):
+        raise TypeError(f"Ожидался строковый путь, получен {type(filepath)}")
     try:
         with open(filepath, 'r') as file:
             return file.read()
@@ -30,7 +32,10 @@ def read_file(filepath):
 
 
 def get_data_format(file_path):
-    return os.path.splitext(file_path)[1][1:]
+    ext = os.path.splitext(file_path)[1][1:].lower()
+    if ext not in ['json', 'yaml', 'yml']:
+        raise ValueError(f"Неподдерживаемый формат данных: {ext}")
+    return ext
 
 
 def parse_data(data, data_format):
