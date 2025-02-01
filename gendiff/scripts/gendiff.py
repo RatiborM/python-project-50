@@ -6,7 +6,7 @@ from gendiff.cli import cli_parser
 def main():
     args = cli_parser()
     try:
-        result =  generate_diff(args.first_file, args.second_file, args.format)
+        result = generate_diff(args.first_file, args.second_file, args.format)
         print(result)
     except FileNotFoundError as e:
         print(f"Ошибка: {e}")
