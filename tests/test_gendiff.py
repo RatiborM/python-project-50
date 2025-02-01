@@ -70,17 +70,7 @@ def test_generate_diff_formatters(file1, file2, formatter, result):
     assert generate_diff(file1, file2, formatter) == get_result(result)
 
 
-def test_unsupported_file_extension():
-    with pytest.raises(
-            ValueError,
-            match=(
-                    "Unsupported file format: .some_extension "
-                    "Expected '.yaml', '.yml' or '.json'."
-            )
-    ):
-        file_data = read_file('file.some_extension')
-        file_format = get_data_format('file.some_extension')
-        parse_data(file_data, file_format)
+
 
 
 def test_unsupported_file_extension():
