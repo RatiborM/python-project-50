@@ -17,19 +17,9 @@ def load_yaml(data):
         raise ValueError("Ошибка декодирования YAML")
 
 
-def get_file_extension(file):
-    return os.path.splitext(file)[1]
-
-
 def read_file(filepath):
-    if not isinstance(filepath, str):
-        raise TypeError(f"Ожидался строковый путь, получен {type(filepath)}")
-    print(f"Открываем файл: {filepath}")  # Печать для отладки
-    try:
-        with open(filepath, 'r') as file:
+    with open(filepath, 'r') as file:
             return file.read()
-    except FileNotFoundError:
-        raise FileNotFoundError(f"Файл не найден: {filepath}")
 
 
 def get_data_format(file_path):
