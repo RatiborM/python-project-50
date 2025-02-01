@@ -89,10 +89,9 @@ def test_unsupported_file_extension():
     with pytest.raises(
             ValueError,
             match=(
-                    "Неподдерживаемый формат данных: some_extension"
+                    "Неподдерживаемый формат: some_extension"
             )
     ):
         # Прямо вызываем get_data_format для неподдерживаемого расширения
-        file_format = get_data_format('file.some_extension')  # Это вызовет ошибку
-        parse_data("", file_format)
+        file_format = get_data_format('file.some_extension')
 

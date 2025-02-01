@@ -7,14 +7,14 @@ def load_json(data):
     try:
         return json.loads(data)
     except json.JSONDecodeError:
-        raise ValueError("Ошибка декодирования JSON данных")
+        raise ValueError("Ошибка декодирования JSON")
 
 
 def load_yaml(data):
     try:
         return yaml.safe_load(data)
     except yaml.YAMLError:
-        raise ValueError("Ошибка декодирования YAML данных")
+        raise ValueError("Ошибка декодирования YAML")
 
 
 def get_file_extension(file):
@@ -24,7 +24,7 @@ def get_file_extension(file):
 def read_file(filepath):
     if not isinstance(filepath, str):
         raise TypeError(f"Ожидался строковый путь, получен {type(filepath)}")
-    print(f"Открываем файл по пути: {filepath}")  # Это поможет отследить, что передается в функцию
+    print(f"Открываем файл: {filepath}")  # Печать для отладки
     try:
         with open(filepath, 'r') as file:
             return file.read()
@@ -35,7 +35,7 @@ def read_file(filepath):
 def get_data_format(file_path):
     ext = os.path.splitext(file_path)[1][1:].lower()
     if ext not in ['json', 'yaml', 'yml']:
-        raise ValueError(f"Неподдерживаемый формат данных: {ext}")
+        raise ValueError(f"Неподдерживаемый формат: {ext}")
     return ext
 
 
@@ -44,5 +44,4 @@ def parse_data(data, data_format):
         return load_json(data)
     elif data_format in ['yaml', 'yml']:
         return load_yaml(data)
-    else:
-        raise ValueError(f"Неподдерживаемый формат данных: {data_format}")
+    raise ValueError(f"Неподдерживаемый формат: {data_format}")
